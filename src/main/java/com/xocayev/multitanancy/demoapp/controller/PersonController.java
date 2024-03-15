@@ -1,7 +1,8 @@
 package com.xocayev.multitanancy.demoapp.controller;
 
+import com.xocayev.multitanancy.demoapp.logic.CreatePersonManager;
+import com.xocayev.multitanancy.demoapp.logic.PersonHelper;
 import com.xocayev.multitanancy.demoapp.pers.entity.Person;
-import com.xocayev.multitanancy.demoapp.pers.rep.PersonRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,19 +15,27 @@ import java.util.List;
 @Transactional
 public class PersonController {
 
-    private final PersonRepository personRepository;
+    private final PersonHelper personHelper;
+    private final CreatePersonManager createPersonManager;
 
-    public PersonController(PersonRepository personRepository) {
-        this.personRepository = personRepository;
+    public PersonController(PersonHelper personHelper, CreatePersonManager createPersonManager) {
+        this.personHelper = personHelper;
+        this.createPersonManager = createPersonManager;
     }
 
+
     @GetMapping("/{id}")
-    public ResponseEntity<Person> getPerson(@PathVariable Long id ) {
-        return new ResponseEntity<>(personRepository.findById(id).get(), null, HttpStatus.OK);
+    public ResponseEntity<Person> getPerson(@PathVariable Long id) {
+        return new ResponseEntity<>(personHelper.getPerson(id), null, HttpStatus.OK);
     }
 
     @GetMapping()
     public ResponseEntity<List<Person>> getPersons() {
-        return new ResponseEntity<>(personRepository.findAll(),null, HttpStatus.OK);
+        return new ResponseEntity<>(personHelper.getPersons(), null, HttpStatus.OK);
+    }
+
+    @PostMapping()
+    public ResponseEntity<Person> createPerson(@RequestBody PersonDto personDto) {
+        return new ResponseEntity<>(createPersonManager.createPerson(personDto), null, HttpStatus.OK);
     }
 }

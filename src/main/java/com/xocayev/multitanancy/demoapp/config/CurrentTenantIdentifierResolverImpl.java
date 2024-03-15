@@ -9,12 +9,13 @@ public class CurrentTenantIdentifierResolverImpl implements CurrentTenantIdentif
     @Override
     public String resolveCurrentTenantIdentifier() {
         String tenant = AppTenantContext.getCurrentTenant();
+        System.out.println(tenant);
         if (tenant != null) {
             return tenant;
         } else {
-            String defaultTenant = "public";
-            return defaultTenant;
+            return "public";
         }
+
     }
 
     @Override

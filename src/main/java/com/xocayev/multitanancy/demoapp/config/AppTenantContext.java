@@ -7,6 +7,7 @@ import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.Objects;
 
 @Component
 public class AppTenantContext implements Filter {
@@ -20,11 +21,8 @@ public class AppTenantContext implements Filter {
 
     public static String getCurrentTenant() {
         String tenant = currentTenant.get();
-        if (tenant != null) {
-            return tenant;
-        } else {
-            return DEFAULT_TENANT;
-        }
+        System.out.println(tenant);
+        return Objects.requireNonNullElse(tenant, DEFAULT_TENANT);
     }
 
     public static void setCurrentTenant(String tenant) {

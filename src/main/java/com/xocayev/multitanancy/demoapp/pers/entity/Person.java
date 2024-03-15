@@ -2,6 +2,8 @@ package com.xocayev.multitanancy.demoapp.pers.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 
 @Entity
 @Table(name = "person")
@@ -55,7 +57,19 @@ public class Person {
         this.email = email;
     }
 
-    // toString method for easy logging or debugging
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return Objects.equals(id, person.id) && Objects.equals(name, person.name) && Objects.equals(age, person.age) && Objects.equals(email, person.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, age, email);
+    }
+
     @Override
     public String toString() {
         return "Person{" +
