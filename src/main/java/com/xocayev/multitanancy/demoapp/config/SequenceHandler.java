@@ -26,10 +26,8 @@ public class SequenceHandler {
     @Transactional
     public String generateId(String sequenceName) {
 
-        String nextId = entityManager
+        return entityManager
                 .createNativeQuery("select nextval('" + sequenceName + "')")
                 .getSingleResult().toString();
-
-        return nextId;
     }
 }

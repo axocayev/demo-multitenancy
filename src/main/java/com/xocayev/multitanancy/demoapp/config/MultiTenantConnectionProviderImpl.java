@@ -33,7 +33,7 @@ public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionP
 
     @Override
     public Connection getConnection(String tenantIdentifier) throws SQLException {
-        logger.trace("Get connection for tenant {}", tenantIdentifier);
+        logger.info("Get connection for tenant {}", tenantIdentifier);
         final Connection connection = getAnyConnection();
         connection.setSchema(tenantIdentifier);
         return connection;
@@ -41,7 +41,7 @@ public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionP
 
     @Override
     public void releaseConnection(String tenantIdentifier, Connection connection) throws SQLException {
-        logger.trace("Release connection for tenant {}", tenantIdentifier);
+        logger.info("Release connection for tenant {}", tenantIdentifier);
         String DEFAULT_TENANT = "public";
         connection.setSchema(DEFAULT_TENANT);
         releaseAnyConnection(connection);

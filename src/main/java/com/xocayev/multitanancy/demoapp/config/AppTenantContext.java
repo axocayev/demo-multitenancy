@@ -21,7 +21,6 @@ public class AppTenantContext implements Filter {
 
     public static String getCurrentTenant() {
         String tenant = currentTenant.get();
-        System.out.println(tenant);
         return Objects.requireNonNullElse(tenant, DEFAULT_TENANT);
     }
 
@@ -32,7 +31,7 @@ public class AppTenantContext implements Filter {
 
     public static void clear() {
         MDC.clear();
-        currentTenant.set(null);
+        currentTenant.remove();
     }
 
     @Override
